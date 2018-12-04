@@ -25,19 +25,20 @@ public class VehicleAi : Vehicle {
     }
 
     public void FleeEnter() {
-        this.steeringBehaviour.resetWeight();
+        this.steeringBehaviour.reset();
         this.steeringBehaviour.FleeOn(player.transform, 10);
         this.steeringBehaviour.SeparationOn(3, 10);
     }
 
     public void ChaseEnter() {
-        this.steeringBehaviour.resetWeight();
+        this.steeringBehaviour.reset();
         this.steeringBehaviour.PursuitOn(player.GetComponent<PlayerController>(), 10);
         this.steeringBehaviour.SeparationOn(3, 10);
     }
 
     public void IniEnter() {
-        this.steeringBehaviour.resetWeight();
+        this.steeringBehaviour.reset();
+        this.steeringBehaviour.PursuitOn(player.GetComponent<PlayerController>(), 10);
         this.steeringBehaviour.SeparationOn(3, 10);
     }
 }

@@ -247,5 +247,8 @@ public class SteeringBehaviour  {
         m_weightOffsetPursuit=0;
         m_weightPlayerControlled=0;
         m_weightFleePanic=0;
-}
+    }
+    public void reset() {
+        m_iFlags = 0;
+    }
 }
