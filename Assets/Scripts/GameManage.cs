@@ -7,10 +7,15 @@ public class GameManage : MonoBehaviour {
 
     public static GameManage instance = null;
     public GameObject[] Enemies;
+    public GameObject[] PowerUps;
+    public Vector2 rayonSpawnPowerUps;
     public int[] pourcentagePop;
     public Vector2[] rayonSpawn;
 
-    public int playerLife;
+
+    //data à conserver entre les niveaux
+    public int playerLife=100;
+    public int score=0;
     public int level = 1;
 
     private int nbDeadEnemies=0;
@@ -32,6 +37,8 @@ public class GameManage : MonoBehaviour {
 
     private void initGame() {
         nbEnemies = 5*Mathf.RoundToInt(Mathf.Log(level+1));
+        int nbPowerUps = nbEnemies / 3;
+
         int[] nbEnemy = new int[Enemies.Length];
         //calcul effectifs
         int sum = 0;
@@ -49,12 +56,18 @@ public class GameManage : MonoBehaviour {
                 Instantiate(Enemies[i], randomPosition(rayonSpawn[i].x, rayonSpawn[i].y),Quaternion.identity);
             }
         }
+
+        for (int i = 0; i < nbPowerUps; i++) {
+            int powerUpChoisi = Random.Range(0,PowerUps.Length);
+            Debug.Log(powerUpChoisi);
+            Instantiate(PowerUps[powerUpChoisi], randomPosition(rayonSpawnPowerUps.x, rayonSpawnPowerUps.y), Quaternion.identity);
+        }
     }
 
     private Vector2 randomPosition(float rMin,float rMax) {
         float theta = Random.Range(0,2*Mathf.PI);
         float r = Random.Range(rMin, rMax);
-        Debug.Log(r);
+        //Debug.Log(r);
         return new Vector2(r*Mathf.Cos(theta),r*Mathf.Sin(theta));
     }
 
@@ -68,7 +81,7 @@ public class GameManage : MonoBehaviour {
     }
 
     IEnumerator ReloadLevel() {
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(2f);//faire des trucs, fonds noir etc
         //instance.level++;
         //Debug.Log("ffff");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -87,6 +100,9 @@ public class GameManage : MonoBehaviour {
         instance.initGame();
     }
 
+    public void UpdateScore(int scoreAdd) {
+        score += scoreAdd;
+    }
 
 
 

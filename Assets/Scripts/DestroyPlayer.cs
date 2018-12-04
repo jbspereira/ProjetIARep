@@ -6,6 +6,7 @@ using UnityEngine;
 public class DestroyPlayer : MonoBehaviour {
 
     public int damageOnCollide = 1;
+    public int scoreGain = 1;
     private bool contact=false;
 
     public void OnTriggerEnter2D(Collider2D collision) {
@@ -16,14 +17,15 @@ public class DestroyPlayer : MonoBehaviour {
         else if (collision.gameObject.tag == "bullet") {
             Destroy(collision.gameObject);
             contact = true;
-            
         }
     }
 
     private void Update() { //on fait ça dans le update sinon les messages sont parfois envoyés deux fois dans le cas où un tir et le joueur touchent un ennemi durant la meme frame
         if (contact) {
-            if (GameManage.instance!=null)
+            if (GameManage.instance != null) {
                 GameManage.instance.onEnemyDied();
+                GameManage.instance.UpdateScore(scoreGain);
+            }
             Destroy(this.gameObject);
         }
     }

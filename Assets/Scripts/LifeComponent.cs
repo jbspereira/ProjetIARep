@@ -6,8 +6,15 @@ public class LifeComponent : MonoBehaviour {
 
     public PlayerHealthUI healthUI;
 
-    public int life = 100;
+    private int life ;
     public bool invicibility = false;
+
+    private void Start() {
+        life = GameManage.instance.playerLife;
+        Debug.Log(life);
+        healthUI.setLife(life);
+    }
+
     public void changeLife(int damage) {
 
         if (damage>0 && invicibility) {
@@ -21,7 +28,7 @@ public class LifeComponent : MonoBehaviour {
         else if (life > 100) {
             life = 100;
         }
-
+        GameManage.instance.playerLife=life;
         healthUI.updateHealth(life);
     }
 }

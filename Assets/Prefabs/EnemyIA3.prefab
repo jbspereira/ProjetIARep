@@ -102,7 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9952439d957543449bd02a4199cc333d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageOnCollide: 2
+  damageOnCollide: 40
+  scoreGain: 80
 --- !u!114 &114713896918017894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -114,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5167091a836207d45b15c5a438578618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 5
+  maxSpeed: 8
   elapsedTime: 0
   wanderParam:
     radius: 0
