@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Flee : StateMachineBehaviour {
 
+    Vehicle vehicle;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-        animator.gameObject.GetComponent<VehicleAi>().FleeEnter();
+        vehicle=animator.GetComponent<Vehicle>();
+        vehicle.FleeEnter();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    //
-    //}
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+        vehicle.chaseUpdate();
+    }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {

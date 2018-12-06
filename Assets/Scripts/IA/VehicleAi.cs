@@ -5,12 +5,9 @@ using UnityEngine;
 public class VehicleAi : Vehicle {
     float currentDistance;
     Animator animator;
-    private GameObject player;
     protected override void Awake() {
         base.Awake();
         animator = GetComponent<Animator>();
-        player = GameObject.FindGameObjectWithTag("Player");
-
         //this.steeringBehaviour.PursuitOn(player.GetComponent<PlayerController>(),10);
         
     }
@@ -24,21 +21,15 @@ public class VehicleAi : Vehicle {
         animator.SetBool("isInvincible", playerLife.invicibility);
     }
 
-    public void FleeEnter() {
-        this.steeringBehaviour.reset();
-        this.steeringBehaviour.FleeOn(player.transform, 10);
-        this.steeringBehaviour.SeparationOn(3, 10);
+    public override void FleeEnter() {
+        base.FleeEnter();
     }
 
-    public void ChaseEnter() {
-        this.steeringBehaviour.reset();
-        this.steeringBehaviour.PursuitOn(player.GetComponent<PlayerController>(), 10);
-        this.steeringBehaviour.SeparationOn(3, 10);
+    public override void ChaseEnter() {
+        base.ChaseEnter();
     }
 
-    public void IniEnter() {
-        this.steeringBehaviour.reset();
-        this.steeringBehaviour.PursuitOn(player.GetComponent<PlayerController>(), 10);
-        this.steeringBehaviour.SeparationOn(3, 10);
+    public override void IniEnter() {
+        base.IniEnter();
     }
 }

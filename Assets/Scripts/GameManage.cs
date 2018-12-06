@@ -4,26 +4,24 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManage : MonoBehaviour {
-
     public static GameManage instance = null;
-    public GameObject[] Enemies;
-    public GameObject[] PowerUps;
-    public Vector2 rayonSpawnPowerUps;
-    public int[] pourcentagePop;
-    public Vector2[] rayonSpawn;
-
-
     //data à conserver entre les niveaux
     public int playerLife=100;
     public int score=0;
     public int level = 1;
+    public float distToInv = 1000;
+    public Vector2 playerPos;
+    public Vector2 playerVelocity;
 
+    private Rigidbody2D playerRB;
     private int nbDeadEnemies=0;
-    private int nbEnemies;
-
+    public int nbEnemies;
+    private Loader loader;
     void Awake() {
+        loader = GetComponent<Loader>();
         if (instance == null) {
             instance = this;
+            SceneManager.sceneLoaded += OnSceneLoaded;
             DontDestroyOnLoad(gameObject); //pour ne pas le detruire quand on change de scene
         }
         else {
@@ -31,48 +29,14 @@ public class GameManage : MonoBehaviour {
             return;
         }
         Debug.Log(level);
-        
-        initGame();
+        //loader.initGame(level);
     }
 
-    private void initGame() {
-        nbEnemies = 5*Mathf.RoundToInt(Mathf.Log(level+1));
-        int nbPowerUps = nbEnemies / 3;
-
-        int[] nbEnemy = new int[Enemies.Length];
-        //calcul effectifs
-        int sum = 0;
-        for (int i = nbEnemy.Length-1; i > 0; i--) {
-            nbEnemy[i]= Mathf.RoundToInt(pourcentagePop[i] * (1 - Mathf.Exp(-level)) * nbEnemies / 100);
-            sum += nbEnemy[i];
-        }
-        nbEnemy[0] = nbEnemies - sum;
-
-        //instantiation
-        for (int i = 0; i < nbEnemy.Length; i++) {
-            //Debug.Log("Enemi " + i+"   "+nbEnemy[i]);
-            for (int j = 0; j < nbEnemy[i]; j++) {
-                //Debug.Log("Instantiate enemi " + i);
-                Instantiate(Enemies[i], randomPosition(rayonSpawn[i].x, rayonSpawn[i].y),Quaternion.identity);
-            }
-        }
-
-        for (int i = 0; i < nbPowerUps; i++) {
-            int powerUpChoisi = Random.Range(0,PowerUps.Length);
-            Debug.Log(powerUpChoisi);
-            Instantiate(PowerUps[powerUpChoisi], randomPosition(rayonSpawnPowerUps.x, rayonSpawnPowerUps.y), Quaternion.identity);
-        }
-    }
-
-    private Vector2 randomPosition(float rMin,float rMax) {
-        float theta = Random.Range(0,2*Mathf.PI);
-        float r = Random.Range(rMin, rMax);
-        //Debug.Log(r);
-        return new Vector2(r*Mathf.Cos(theta),r*Mathf.Sin(theta));
-    }
+    
 
     public void onEnemyDied() {
         nbDeadEnemies++;
+        Debug.Log(nbDeadEnemies+"   "+nbEnemies );
         //Debug.Log(nbDeadEnemies);
         if (nbDeadEnemies == nbEnemies) {
             nbDeadEnemies = 0;
@@ -87,23 +51,31 @@ public class GameManage : MonoBehaviour {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-    static public void CallbackInitialization() {
-        //register the callback to be called everytime the scene is loaded
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
     //This is called each time a scene is loaded.
-    static private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1) {
-        Debug.Log("ffff");
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1) {
+        Debug.Log("scene loaded");
         instance.level++;
-        instance.initGame();
+        playerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+        //loader.initGame(level);
     }
 
     public void UpdateScore(int scoreAdd) {
         score += scoreAdd;
     }
 
+    private void Update() {
+        playerPos = playerRB.position;
+        playerVelocity = playerRB.velocity;
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(playerPos, 15f);
+        foreach(Collider2D collider in colliders) {
+            if (collider.tag=="PowerUp" && collider.GetComponent<PowerUp>().powerUpName == "PowerUpStar") {
+                float distance = Vector2.Distance(playerPos, collider.transform.position);
+                if (distance < distToInv)
+                    distToInv = distance;
+            }
+        }
+    }
 
 
 

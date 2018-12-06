@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PowerUpManager : MonoBehaviour {
 
-    public GameObject powerUpUI;
     public Dictionary<string, int> powerUpsCorr;
     List<PowerUp> powerUps;
 
