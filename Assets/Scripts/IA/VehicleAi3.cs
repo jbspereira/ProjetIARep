@@ -15,10 +15,12 @@ public class VehicleAi3 : Vehicle {
     }
 
     public override void FleeEnter() {
+        maxSpeed = 8;
         base.FleeEnter();
     }
 
     public override void ChaseEnter() {
+        maxSpeed = 8;
         base.ChaseEnter();
     }
 
@@ -42,6 +44,10 @@ public class VehicleAi3 : Vehicle {
         return;
     }
     public override void ShootEnter() {
+        maxSpeed = 0;
         base.ShootEnter();
+    }
+    public override void updateTransi() {
+        updateFuzzy();
     }
 }

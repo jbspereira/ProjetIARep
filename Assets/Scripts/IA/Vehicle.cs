@@ -71,7 +71,9 @@ public abstract class Vehicle : MonoBehaviour {
     }
 
     protected virtual void setDirection() {// pure virtual must be overridden
-        if (rb.velocity.sqrMagnitude != 0)
+        if (player!=null)
+            transform.up = (player.transform.position - transform.position).normalized;
+        else if (rb.velocity.sqrMagnitude != 0)
             transform.up = rb.velocity.normalized; //oriente le vehicule vers la cible
     }
 
@@ -98,7 +100,7 @@ public abstract class Vehicle : MonoBehaviour {
     }
     public virtual void ShootEnter() {
         this.steeringBehaviour.reset();
-        maxSpeed = 0;
     }
-
+    public virtual void updateTransi() {
+    }
 }

@@ -29,7 +29,6 @@ public class GameManage : MonoBehaviour {
             return;
         }
         Debug.Log(level);
-        //loader.initGame(level);
     }
 
     
@@ -56,7 +55,7 @@ public class GameManage : MonoBehaviour {
         Debug.Log("scene loaded");
         instance.level++;
         playerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
-        //loader.initGame(level);
+        loader.initGame(level);
     }
 
     public void UpdateScore(int scoreAdd) {

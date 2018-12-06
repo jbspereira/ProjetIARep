@@ -10,7 +10,7 @@ public class fuzzyTest  {
     public courbeTrapeze tooSafe;
 
     public courbeTrapeze closeJ;
-    public courbeTriangle mediumJ;
+    public courbeTrapeze mediumJ;
     public courbeTrapeze farJ;
 
     public courbeTrapeze closeI;
@@ -26,9 +26,9 @@ public class fuzzyTest  {
         mediumVA = new courbeTriangle(0.3f, 0.5f, 0.7f);
         fastVA = new courbeTrapeze(0.6f, 0.8f, 1f,10f);
 
-        closeJ = new courbeTrapeze(0,5,5f,15f);
-        mediumJ = new courbeTriangle(5f, 15f, 30f);
-        farJ = new courbeTrapeze(15f, 30f, 9000, 10000);
+        closeJ = new courbeTrapeze(0,0f,15f,20f);
+        mediumJ = new courbeTrapeze(15f,20f, 25f, 30f);
+        farJ = new courbeTrapeze(25f, 30f, 9000, 10000);
 
         closeI = new courbeTrapeze(0, 5, 2.5f, 7.5f);
         mediumI = new courbeTriangle(2.5f, 7.5f, 15f);
