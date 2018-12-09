@@ -6753,7 +6753,7 @@ MonoBehaviour:
   wanderParam:
     radius: 1
     distance: 1
-    jitter: 3
+    jitter: 15
   follower: {fileID: 1543623900116756, guid: dfedb63c0d0f55747ae84d9a19560359, type: 2}
 --- !u!1 &1908629915
 GameObject:

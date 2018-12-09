@@ -9,7 +9,7 @@ public class VehicleAi4Leader : Vehicle {
         base.Awake();
 
         this.steeringBehaviour.PursuitTangentOn(player.GetComponent<PlayerController>(), 10,20,10,20);
-        this.steeringBehaviour.WanderOn(20);
+        this.steeringBehaviour.WanderOn(100);
 
         Vehicle lastVehicle = this;
         for (int i = 0; i < 6; i++) {
