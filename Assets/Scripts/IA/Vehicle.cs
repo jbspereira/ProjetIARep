@@ -18,7 +18,7 @@ public abstract class Vehicle : MonoBehaviour {
     protected Rigidbody2D rb;
     protected Vector2 acceleration;
     public WanderParameters wanderParam = new WanderParameters();
-    protected GameObject player;
+    protected static GameObject player;
     void FixedUpdate() {
         elapsedTime = Time.fixedDeltaTime;
 
@@ -27,7 +27,7 @@ public abstract class Vehicle : MonoBehaviour {
 
         //Combiner les forces ici
         resultanteForces += steeringBehaviour.Calculate();
-
+        Debug.DrawLine(rb.position,rb.position+resultanteForces);
         //Finalement appliquer la resultante
         acceleration = resultanteForces;
         Vector2 vel = rb.velocity + resultanteForces * elapsedTime;
@@ -51,7 +51,7 @@ public abstract class Vehicle : MonoBehaviour {
     }
 
     public Vector2 Heading() {
-        return transform.up;
+        return getVelocity().normalized;
     }
 
     public Vector2 Side() {
@@ -64,17 +64,19 @@ public abstract class Vehicle : MonoBehaviour {
     }
 
     protected virtual void Awake() {
-        player = GameObject.FindGameObjectWithTag("Player");
+        if (player==null)
+            player = GameObject.FindGameObjectWithTag("Player");
         acceleration = Vector2.zero;
         steeringBehaviour = new SteeringBehaviour(this, wanderParam.radius, wanderParam.distance, wanderParam.jitter);
         rb = GetComponent<Rigidbody2D>();
     }
 
     protected virtual void setDirection() {// pure virtual must be overridden
-        if (player!=null)
-            transform.up = (player.transform.position - transform.position).normalized;
-        else if (rb.velocity.sqrMagnitude != 0)
+        
+        if (rb.velocity.sqrMagnitude != 0)
             transform.up = rb.velocity.normalized; //oriente le vehicule vers la cible
+        else if (player != null)
+            transform.up = (player.transform.position - transform.position).normalized;
     }
 
     public virtual void FleeEnter() {
