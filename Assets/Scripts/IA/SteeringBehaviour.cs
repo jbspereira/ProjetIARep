@@ -14,6 +14,8 @@ public class SteeringBehaviour  {
     private int m_iFlags = 0;
     private float m_deceleration;
     private float m_radiusPanic;
+    private float m_radiusPursuitMax;
+    private float m_radiusPursuitMin;
     private Transform m_target;
     private Vehicle m_pTargetAgent1;
     private Vector2 m_vOffset;
@@ -28,6 +30,7 @@ public class SteeringBehaviour  {
     private float m_weightOffsetPursuit;
     private float m_weightPlayerControlled;
     private float m_weightFleePanic;
+    private float m_weightPursuitTangent;
 
     private enum behavior_type:int {
         none = 0x00000,
@@ -39,7 +42,8 @@ public class SteeringBehaviour  {
         pursuit = 0x00040,
         offset_pursuit = 0x00080,
         playerControlled=0x00100,
-        fleepanic=0x00200
+        fleepanic=0x00200,
+        pursuitTangent=0x00400
     };
     //private float maxForce;
 
@@ -117,6 +121,10 @@ public class SteeringBehaviour  {
     }
 
     public Vector2 Pursuit(Vehicle evader) {
+        if (evader == null) {
+            vehicle.setVelocity(Vector2.zero);
+            return Vector2.zero;
+        }
         //if the evader is ahead and facing the agent then we can just seek
         //for the evader's current position.
         Vector2 ToEvader = evader.getPosition() - vehicle.getPosition();
@@ -134,6 +142,10 @@ public class SteeringBehaviour  {
         //now seek to the predicted future position of the evader
         return Seek(evader.getPosition() + evader.getVelocity() * LookAheadTime);
     }    public Vector2 offsetPursuit(Vehicle evader,Vector2 offset) {
+        if (evader == null || evader.getVelocity().sqrMagnitude<0.2) {//si supprimé ou à l'arrêt
+            vehicle.setVelocity(Vector2.zero);
+            return Vector2.zero;
+        }
         //if the evader is ahead and facing the agent then we can just seek
         //for the evader's current position.
         Vector2 offsetPos = evader.getPosition()+offset.y * evader.Heading()+offset.x*evader.Side();
@@ -149,10 +161,10 @@ public class SteeringBehaviour  {
 
     public Vector2 Separation(float radius) {
         Vector2 SteeringForce=Vector2.zero;
-        GameObject[] neighbors= GameObject.FindGameObjectsWithTag("vehicle");
+        Collider2D[] neighbors = Physics2D.OverlapCircleAll(vehicle.getPosition(),radius);
         for (int a = 0; a < neighbors.Length; ++a) {
             Vector2 ToAgent = vehicle.getPosition() - neighbors[a].GetComponent<Rigidbody2D>().position;
-            if ((neighbors[a] != vehicle.gameObject) && (m_pTargetAgent1!=null  && neighbors[a] != m_pTargetAgent1.gameObject) && ToAgent.magnitude < radius) {
+            if (neighbors[a].tag=="Vehicle" && (neighbors[a] != vehicle.gameObject) && (m_pTargetAgent1!=null  && neighbors[a] != m_pTargetAgent1.gameObject)) {
                 SteeringForce += ToAgent.normalized / ToAgent.magnitude;
             }
         }
@@ -199,23 +211,40 @@ public class SteeringBehaviour  {
         if (On(behavior_type.fleepanic)) {
             resultanteForces += m_weightFleePanic* FleePanicDistance(m_target.position, m_radiusPanic);
         }
+        if (On(behavior_type.pursuitTangent)) {
+            Vector2 distance = (vehicle.getPosition() - m_pTargetAgent1.getPosition());
+
+            if (distance.magnitude > m_radiusPursuitMax) {
+                resultanteForces += m_weightPursuit*Pursuit(m_pTargetAgent1);
+            }
+            if (distance.magnitude < m_radiusPursuitMin) {
+                resultanteForces += m_weightPursuit * Flee(m_pTargetAgent1.getPosition());
+            }
+
+            Vector2 DesiredVelocity = distance.normalized * vehicle.maxSpeed;
+
+            //Debug.DrawLine(new Vector2(0, 0), pursuit);
+            //Debug.DrawLine(new Vector2(0, 0), m_weightPursuitTangent*new Vector2(pursuit.y, -pursuit.x),Color.red);
+
+            resultanteForces +=  m_weightPursuitTangent*new Vector2(DesiredVelocity.y,-DesiredVelocity.x);
+        }
         return resultanteForces;
     }
 
     bool On(behavior_type type) { return (m_iFlags & ((int)type)) == (int)type; }
 
-    public void FleeOn(Transform target, int weight=1) { m_iFlags |= (int)behavior_type.flee; m_weightFlee = weight; m_target = target; }
-    public void SeekOn(Transform target, int weight = 1) { m_iFlags |= (int)behavior_type.seek; m_weightSeek = weight; m_target = target; }
-    public void ArriveOn(float deceleration, Transform target,int weight = 1) {
+    public void FleeOn(Transform target, float weight=1) { m_iFlags |= (int)behavior_type.flee; m_weightFlee = weight; m_target = target; }
+    public void SeekOn(Transform target, float weight = 1) { m_iFlags |= (int)behavior_type.seek; m_weightSeek = weight; m_target = target; }
+    public void ArriveOn(float deceleration, Transform target, float weight = 1) {
         m_target = target;
         m_iFlags |= (int)behavior_type.arrive;
         m_deceleration = deceleration;
         m_weightArrive = weight;
     }
-    public void WanderOn(int weight = 1) { m_iFlags |= (int)behavior_type.wander; m_weightWander = weight; }
-    public void SeparationOn(float radius, int weight = 1) { m_iFlags |= (int)behavior_type.separation; m_weightSeparation = weight; m_radius = radius; }
-    public void PursuitOn(Vehicle v1, int weight = 1) { m_iFlags |= (int)behavior_type.pursuit; m_weightPursuit = weight; m_pTargetAgent1 = v1; }
-    public void OffsetPursuitOn(Vehicle v1, Vector2 offset, float deceleration, int weight = 1) {
+    public void WanderOn(float weight = 1) { m_iFlags |= (int)behavior_type.wander; m_weightWander = weight; }
+    public void SeparationOn(float radius, float weight = 1) { m_iFlags |= (int)behavior_type.separation; m_weightSeparation = weight; m_radius = radius; }
+    public void PursuitOn(Vehicle v1, float weight = 1) { m_iFlags |= (int)behavior_type.pursuit; m_weightPursuit = weight; m_pTargetAgent1 = v1; }
+    public void OffsetPursuitOn(Vehicle v1, Vector2 offset, float deceleration, float weight = 1) {
         m_iFlags |= (int) behavior_type.offset_pursuit;
         m_vOffset = offset;
         m_pTargetAgent1 = v1;
@@ -223,13 +252,13 @@ public class SteeringBehaviour  {
         m_weightOffsetPursuit = weight;
         vehicle.SetColor(Color.blue);
     }
-    public void PlayerOn(int weight = 1) {
+    public void PlayerOn(float weight = 1) {
         m_iFlags |= (int)behavior_type.playerControlled;
         m_weightPlayerControlled = weight;
         //vehicle.SetColor(Color.green);
     }
 
-    public void fleePanicOn(float radius,Transform target,int weight = 1) {
+    public void fleePanicOn(float radius,Transform target, float weight = 1) {
         m_radiusPanic = radius;
         m_iFlags |= (int)behavior_type.fleepanic;
         m_target = target;
@@ -237,17 +266,7 @@ public class SteeringBehaviour  {
         //vehicle.SetColor(Color.green);
     }
 
-    public void resetWeight() {
-        m_weightSeek=0;
-        m_weightFlee=0;
-        m_weightArrive=0;
-        m_weightWander=0;
-        m_weightSeparation=0;
-        m_weightPursuit=0;
-        m_weightOffsetPursuit=0;
-        m_weightPlayerControlled=0;
-        m_weightFleePanic=0;
-    }
+    public void PursuitTangentOn(Vehicle v1, float radiusMax,float radiusMin, float weight = 1, float weigthTangent =1) { m_radiusPursuitMax = radiusMax; m_radiusPursuitMin=radiusMin; m_iFlags |= (int)behavior_type.pursuitTangent; m_weightPursuit = weight; m_pTargetAgent1 = v1; m_weightPursuitTangent = weigthTangent; }
     public void reset() {
         m_iFlags = 0;
     }

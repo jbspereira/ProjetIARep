@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Initial : StateMachineBehaviour {
 
+    Vehicle vehicle;
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-        animator.gameObject.GetComponent<Rigidbody2D>().velocity =new Vector2(0,0);
-        animator.gameObject.GetComponent<VehicleAi>().IniEnter();
+        //animator.GetComponent<Rigidbody2D>().velocity =new Vector2(0,0);
+        vehicle=animator.GetComponent<Vehicle>();
+        vehicle.IniEnter();
     }
 
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

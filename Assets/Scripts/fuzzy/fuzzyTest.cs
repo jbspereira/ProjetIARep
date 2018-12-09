@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class fuzzyTest:MonoBehaviour  {
+public class fuzzyTest  {
 
     public courbeTrapeze notSafe;
     public courbeTriangle safe;
     public courbeTrapeze tooSafe;
 
     public courbeTrapeze closeJ;
-    public courbeTriangle mediumJ;
+    public courbeTrapeze mediumJ;
     public courbeTrapeze farJ;
 
     public courbeTrapeze closeI;
@@ -21,14 +21,14 @@ public class fuzzyTest:MonoBehaviour  {
     public courbeTriangle mediumVA;
     public courbeTrapeze fastVA;
 
-    private void Start() {
+    public fuzzyTest() {
         slowVA = new courbeTriangle(0, 0.2f, 0.4f);
         mediumVA = new courbeTriangle(0.3f, 0.5f, 0.7f);
         fastVA = new courbeTrapeze(0.6f, 0.8f, 1f,10f);
 
-        closeJ = new courbeTrapeze(0,5,5f,15f);
-        mediumJ = new courbeTriangle(5f, 15f, 30f);
-        farJ = new courbeTrapeze(15f, 30f, 9000, 10000);
+        closeJ = new courbeTrapeze(0,0f,15f,20f);
+        mediumJ = new courbeTrapeze(15f,20f, 25f, 30f);
+        farJ = new courbeTrapeze(25f, 30f, 9000, 10000);
 
         closeI = new courbeTrapeze(0, 5, 2.5f, 7.5f);
         mediumI = new courbeTriangle(2.5f, 7.5f, 15f);
@@ -39,8 +39,8 @@ public class fuzzyTest:MonoBehaviour  {
         tooSafe = new courbeTrapeze(50f, 75f, 95f, 100f);
 
 
-        float res=fuzzyCalculate(15f,50f,0.1f);
-        Debug.Log("logique floue " + res);
+        //float res=fuzzyCalculate(15f,50f,0.1f);
+        //Debug.Log("logique floue " + res);
     }
 
     public float fuzzyCalculate(float distanceJ,float distanceI,float vitesseNorm) {
