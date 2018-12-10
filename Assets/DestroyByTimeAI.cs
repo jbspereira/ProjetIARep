@@ -6,7 +6,7 @@ public class DestroyByTimeAI : MonoBehaviour {
 
     public static float timeAvantDestruction = 2f;
     private float startTime;
-    public Color colorGO;
+    private Color colorGO;
 
     void Start() {
         Destroy(gameObject, timeAvantDestruction);
