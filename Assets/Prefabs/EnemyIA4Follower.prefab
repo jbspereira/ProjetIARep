@@ -122,6 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageOnCollide: 20
   scoreGain: 50
+  probaDrop: 40
 --- !u!114 &114530898283744800
 MonoBehaviour:
   m_ObjectHideFlags: 1

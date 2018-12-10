@@ -217,7 +217,7 @@ public class SteeringBehaviour  {
             if (distance.magnitude > m_radiusPursuitMax) {
                 resultanteForces += m_weightPursuit*Pursuit(m_pTargetAgent1);
             }
-            if (distance.magnitude < m_radiusPursuitMin) {
+            else if (distance.magnitude < m_radiusPursuitMin) {
                 resultanteForces += m_weightPursuit * Flee(m_pTargetAgent1.getPosition());
             }
 

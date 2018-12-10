@@ -21,10 +21,9 @@ GameObject:
   - component: {fileID: 4283871246654110}
   - component: {fileID: 212690247779488600}
   - component: {fileID: 50650314619134722}
-  - component: {fileID: 60569410131383316}
+  - component: {fileID: 61183074421250394}
   - component: {fileID: 114469967333912360}
-  - component: {fileID: 114563416668222372}
-  - component: {fileID: 95924828042413588}
+  - component: {fileID: 114723440943940746}
   m_Layer: 0
   m_Name: EnemyIA4
   m_TagString: vehicle
@@ -65,8 +64,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &60569410131383316
-PolygonCollider2D:
+--- !u!61 &61183074421250394
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -77,7 +76,7 @@ PolygonCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.12}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -87,29 +86,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0, y: 0.5}
-      - {x: -0.4330127, y: -0.25000003}
-      - {x: 0.43301272, y: -0.24999996}
---- !u!95 &95924828042413588
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1307423251792064}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 80207bbf438fb774c9b898bb91b3925e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 0.75}
+  m_EdgeRadius: 0
 --- !u!114 &114469967333912360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,7 +102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageOnCollide: 20
   scoreGain: 50
---- !u!114 &114563416668222372
+  probaDrop: 100
+--- !u!114 &114723440943940746
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,15 +111,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1307423251792064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b387963fa90ce64a993f17675e5dd3a, type: 3}
+  m_Script: {fileID: 11500000, guid: 9faa8e50608d76d40b687b82b0724304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 8
   elapsedTime: 0
   wanderParam:
-    radius: 0.3
-    distance: 0.5
-    jitter: 5
+    radius: 1
+    distance: 1
+    jitter: 12
+  follower: {fileID: 1543623900116756, guid: dfedb63c0d0f55747ae84d9a19560359, type: 2}
 --- !u!212 &212690247779488600
 SpriteRenderer:
   m_ObjectHideFlags: 1

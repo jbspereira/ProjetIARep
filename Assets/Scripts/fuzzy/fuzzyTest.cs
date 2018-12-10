@@ -84,8 +84,8 @@ public class fuzzyTest  {
                 indiceMax = i;
             }
         }
-        Debug.Log("max " + maxNotSafe_var+ "    "+ maxSafe_var + "     "+ maxTooSafe_var);
-        Debug.Log("max "+max);
+        //Debug.Log("max " + maxNotSafe_var+ "    "+ maxSafe_var + "     "+ maxTooSafe_var);
+        //Debug.Log("max "+max);
         Vector2 final;
         switch (indiceMax) {
             case 0:
