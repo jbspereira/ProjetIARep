@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManage : MonoBehaviour {
     public static GameManage instance = null;
+    public bool spawn = true;
     //data à conserver entre les niveaux
     public int playerLife=100;
     public int score=0;
     public int level = 1;
-    [HideInInspector]
+    //[HideInInspector]
     public float distToInv = 1000;
     [HideInInspector]
     public Vector2 playerPos;
@@ -39,7 +40,8 @@ public class GameManage : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
-        StartCoroutine("NewWaveSpawn");
+        if (spawn)
+            StartCoroutine("NewWaveSpawn");
     }
 
     
@@ -114,13 +116,16 @@ public class GameManage : MonoBehaviour {
         playerVelocity = playerRB.velocity;
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(playerPos, 15f);
+        float distanceMin = 1000f;
         foreach(Collider2D collider in colliders) {
-            if (collider.tag=="PowerUp" && collider.GetComponent<PowerUp>().powerUpName == "PowerUpStar") {
+            if (collider.tag=="PowerUp" && collider.GetComponent<PowerUp>().powerUpName == "Star") {
                 float distance = Vector2.Distance(playerPos, collider.transform.position);
-                if (distance < distToInv)
-                    distToInv = distance;
+                if (distance < distanceMin) {
+                    distanceMin = distance;
+                }
             }
         }
+        distToInv = distanceMin;
     }
 
     public void SpawnPU(Vector3 position) {

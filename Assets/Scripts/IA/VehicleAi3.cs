@@ -30,7 +30,7 @@ public class VehicleAi3 : Vehicle {
 
     private void updateFuzzy() {
         Vector2 toPlayer = GameManage.instance.playerPos - rb.position;
-        float value=(Vector2.Dot(toPlayer, GameManage.instance.playerVelocity)+15)/30;
+        float value=(Vector2.Dot(toPlayer.normalized, -GameManage.instance.playerVelocity))/10+0.1f;
         animator.SetFloat("fuzzyRes", fuzzy.fuzzyCalculate(toPlayer.magnitude, GameManage.instance.distToInv, value));
     }
 

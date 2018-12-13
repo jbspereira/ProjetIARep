@@ -98,7 +98,7 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1307423251792064}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 80207bbf438fb774c9b898bb91b3925e, type: 2}
   m_CullingMode: 0
@@ -138,9 +138,9 @@ MonoBehaviour:
   maxSpeed: 8
   elapsedTime: 0
   wanderParam:
-    radius: 0.3
-    distance: 0.5
-    jitter: 12
+    radius: 1
+    distance: 1
+    jitter: 30
 --- !u!114 &114603591203107614
 MonoBehaviour:
   m_ObjectHideFlags: 1

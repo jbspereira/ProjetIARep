@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpName: Star
-  timeBeforeExpire: 10
+  timeBeforeExpire: 5
 --- !u!114 &114951549173639284
 MonoBehaviour:
   m_ObjectHideFlags: 1

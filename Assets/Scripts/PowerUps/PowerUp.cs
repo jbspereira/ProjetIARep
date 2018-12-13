@@ -30,7 +30,7 @@ public class PowerUp : MonoBehaviour {
         if (goCollecting.tag != "Player") {
             return;
         }
-        Debug.Log("Power Up ramassé player");
+        //Debug.Log("Power Up ramassé player");
         player = goCollecting;
 
         if (player.GetComponent<PowerUpManager>().AddPowerUp(this)) {

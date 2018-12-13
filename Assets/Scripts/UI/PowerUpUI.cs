@@ -13,7 +13,7 @@ public class PowerUpUI : MonoBehaviour {
         slotTaken = new bool[gameObject.transform.childCount];
     }
     public void AssignSlotToPowerUp(string numPowerUp,Color color) {
-        Debug.Log(numPowerUp);
+        //Debug.Log(numPowerUp);
         if (powerUpToImage.ContainsKey(numPowerUp)) {
             gameObject.transform.GetChild(powerUpToImage[numPowerUp]).gameObject.SetActive(true);
             return;

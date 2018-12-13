@@ -81,28 +81,34 @@ public abstract class Vehicle : MonoBehaviour {
 
     public virtual void FleeEnter() {
         this.steeringBehaviour.reset();
+        maxSpeed = 8.0f;
         this.steeringBehaviour.FleeOn(player.transform, 10);
         this.steeringBehaviour.SeparationOn(3, 10);
     }
 
     public virtual void ChaseEnter() {
         this.steeringBehaviour.reset();
+        maxSpeed = 8.0f;
         this.steeringBehaviour.PursuitOn(player.GetComponent<PlayerController>(), 10);
         this.steeringBehaviour.SeparationOn(3, 10);
     }
 
     public virtual void IniEnter() {
-        this.steeringBehaviour.reset();
-        this.steeringBehaviour.PursuitOn(player.GetComponent<PlayerController>(), 10);
-        this.steeringBehaviour.SeparationOn(3, 10);
+        //this.steeringBehaviour.reset();
+        //this.steeringBehaviour.PursuitOn(player.GetComponent<PlayerController>(), 10);
+        maxSpeed = 3.0f;
+        //this.steeringBehaviour.SeparationOn(3, 10);
     }
     public virtual void chaseUpdate() {
+        this.steeringBehaviour.SeparationOn(3, 10);
     }
     public virtual void fleeUpdate() {
+        this.steeringBehaviour.SeparationOn(3, 10);
     }
     public virtual void ShootEnter() {
         this.steeringBehaviour.reset();
     }
     public virtual void updateTransi() {
+        this.steeringBehaviour.SeparationOn(3, 10);
     }
 }

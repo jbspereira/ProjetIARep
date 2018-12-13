@@ -12,7 +12,7 @@ public class LifeComponent : MonoBehaviour {
 
     private void Start() {
         life = GameManage.instance.playerLife;
-        Debug.Log(life);
+        //Debug.Log(life);
         healthUI.setLife(life);
     }
 

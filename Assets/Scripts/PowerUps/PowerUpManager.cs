@@ -17,14 +17,14 @@ public class PowerUpManager : MonoBehaviour {
     public bool AddPowerUp(PowerUp powerUp) {
         powerUp.Assign();
         if (powerUpsCorr.ContainsKey(powerUp.powerUpName)) {
-            Debug.Log("vu");
+            //Debug.Log("vu");
             Destroy(powerUp.gameObject);
             int id = powerUpsCorr[powerUp.powerUpName];
             powerUps[id].Reactivate();
             return false;
         }
         else {
-            Debug.Log("jamais vu");
+            //Debug.Log("jamais vu");
             powerUpsCorr[powerUp.powerUpName] = powerUps.Count;
             powerUps.Add(powerUp);
             return true;

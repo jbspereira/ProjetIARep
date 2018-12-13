@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpName: Range
-  timeBeforeExpire: 10
+  timeBeforeExpire: 5
   gainRange: 1
 --- !u!212 &212216510301595146
 SpriteRenderer:
