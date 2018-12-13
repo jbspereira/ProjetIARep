@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 50543955129299914}
   - component: {fileID: 114050866429899580}
   - component: {fileID: 58757346916657424}
+  - component: {fileID: 114820075820546380}
   m_Layer: 0
   m_Name: Shot
   m_TagString: bullet
@@ -102,6 +103,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e380d3706ccaef84097c47e0b0a83c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorGO: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &114820075820546380
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1123941217135868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f6d3c6e4250e84192f5b34ce9e71bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glowColor: {r: 0.1462264, g: 1, b: 0.14812517, a: 1}
+  glowBrightness: 3
+  outlineWidth: 3
+  alphaThreshold: 0.01
+  drawOutside: 0
+  enableInstancing: 0
 --- !u!212 &212559440061743282
 SpriteRenderer:
   m_ObjectHideFlags: 1

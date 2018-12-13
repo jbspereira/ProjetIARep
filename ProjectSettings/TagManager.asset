@@ -7,6 +7,7 @@ TagManager:
   - vehicle
   - PowerUp
   - bullet
+  - bomb
   layers:
   - Default
   - TransparentFX

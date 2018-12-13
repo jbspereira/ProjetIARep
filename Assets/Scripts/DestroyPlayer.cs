@@ -8,8 +8,15 @@ public class DestroyPlayer : MonoBehaviour {
     public int damageOnCollide = 1;
     public int scoreGain = 1;
     public int probaDrop=20;
+    public GameObject explosion;
+
+    private static Animator CameraShake;
     private bool contact=false;
 
+    private void Start() {
+        if (CameraShake==null)
+            CameraShake = Camera.main.GetComponent<Animator>();
+    }
     public void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag == "Player") {
             collision.gameObject.GetComponent<LifeComponent>().changeLife(damageOnCollide);
@@ -17,6 +24,9 @@ public class DestroyPlayer : MonoBehaviour {
         }
         else if (collision.gameObject.tag == "bullet") {
             Destroy(collision.gameObject);
+            contact = true;
+        }
+        else if (collision.gameObject.tag == "bomb") {
             contact = true;
         }
     }
@@ -31,6 +41,8 @@ public class DestroyPlayer : MonoBehaviour {
                 GameManage.instance.onEnemyDied();
                 GameManage.instance.UpdateScore(scoreGain);
             }
+            CameraShake.SetTrigger("Shake");
+            Instantiate(explosion,transform.position,Quaternion.identity);
             Destroy(this.gameObject);
         }
     }

@@ -20,13 +20,14 @@ public class GameManage : MonoBehaviour {
     public float[] wavesTime;
     //public TextMeshProUGUI scoreText;
     public TextMeshProUGUI waveText;
-
+    public GameObject waveCompleteText;
     private Rigidbody2D playerRB;
     private int nbDeadEnemies=0;
     [HideInInspector]
     public int nbEnemies;
     private Loader loader;
     void Awake() {
+        Time.timeScale = 1.0f;
         loader = GetComponent<Loader>();
         playerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         if (instance == null) {
@@ -51,16 +52,14 @@ public class GameManage : MonoBehaviour {
             nbDeadEnemies = 0;
             //StartCoroutine("ReloadLevel");
             UpdateWaveText();
-            StartCoroutine("NewWaveSpawn");
+            StartCoroutine("DisplayTextAndRestartWave");
         }
     }
 
     IEnumerator NewWaveSpawn() {
-        Debug.Log("New wave coming in 10 sec");
-        yield return new WaitForSecondsRealtime(5f);
         //nbEnemies = 5 * Mathf.RoundToInt(Mathf.Log(level + 20));
         nbEnemies = 6 * level + 10;
-        Debug.Log("level " + level+" nbEnemies "+nbEnemies);
+        //Debug.Log("level " + level+" nbEnemies "+nbEnemies);
         int nbEnemiesLeft=nbEnemies;
         while (nbEnemiesLeft > 0) {
             int waveType = Random.Range(0, wavesSize.Length);
@@ -72,11 +71,20 @@ public class GameManage : MonoBehaviour {
                 waveTime = 0f;
             }
             nbEnemiesLeft -= nbEnemiesWave;
-            Debug.Log("nbEnemies spawn : "+nbEnemiesWave+" sur "+ nbEnemies);
+            //Debug.Log("nbEnemies spawn : "+nbEnemiesWave+" sur "+ nbEnemies);
             loader.initGame(level, nbEnemiesWave);
             yield return new WaitForSecondsRealtime(waveTime);
         }
         instance.level++;
+    }
+
+    IEnumerator DisplayTextAndRestartWave() {
+        waveCompleteText.SetActive(true);
+        yield return new WaitForSecondsRealtime(2f);
+        waveCompleteText.SetActive(false);
+        yield return new WaitForSecondsRealtime(5.0f);
+        StartCoroutine("NewWaveSpawn");
+
     }
 
     /*IEnumerator ReloadLevel() {

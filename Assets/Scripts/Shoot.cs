@@ -8,10 +8,11 @@ public class Shoot : MonoBehaviour {
     public Transform shotSpawn;
     public Transform shotSpawnLeft;
     public Transform shotSpawnRight;
-
+    //public GameObject bomb;
     public bool coneShoot = false;
     public float fireRate;
 
+    //public int bombCounter=0;
     private float nextFire;
 
 
@@ -24,5 +25,15 @@ public class Shoot : MonoBehaviour {
                 Instantiate(shot, shotSpawnRight.position, shotSpawnRight.rotation);
             }
         }
+        /*if (Input.GetButtonDown("Fire2") && !bomb.activeInHierarchy && bombCounter>0) {
+            bombCounter--;
+            StartCoroutine("Bomb");
+        }*/
     }
+
+    /*private IEnumerator Bomb() {
+        bomb.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        bomb.SetActive(false);
+    }*/
 }

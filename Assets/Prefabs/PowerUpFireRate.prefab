@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212216510301595146}
   - component: {fileID: 61207346343883058}
   - component: {fileID: 114719290217812562}
+  - component: {fileID: 114142917363842564}
   m_Layer: 0
   m_Name: PowerUpFireRate
   m_TagString: PowerUp
@@ -67,6 +68,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114142917363842564
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1182646777333514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f6d3c6e4250e84192f5b34ce9e71bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glowColor: {r: 1, g: 0, b: 0, a: 1}
+  glowBrightness: 2.5
+  outlineWidth: 3
+  alphaThreshold: 0.01
+  drawOutside: 0
+  enableInstancing: 0
 --- !u!114 &114719290217812562
 MonoBehaviour:
   m_ObjectHideFlags: 1

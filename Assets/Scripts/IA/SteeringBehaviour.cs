@@ -163,8 +163,8 @@ public class SteeringBehaviour  {
         Vector2 SteeringForce=Vector2.zero;
         Collider2D[] neighbors = Physics2D.OverlapCircleAll(vehicle.getPosition(),radius);
         for (int a = 0; a < neighbors.Length; ++a) {
-            Vector2 ToAgent = vehicle.getPosition() - neighbors[a].GetComponent<Rigidbody2D>().position;
             if (neighbors[a].tag=="Vehicle" && (neighbors[a] != vehicle.gameObject) && (m_pTargetAgent1!=null  && neighbors[a] != m_pTargetAgent1.gameObject)) {
+                Vector2 ToAgent = vehicle.getPosition() - neighbors[a].GetComponent<Rigidbody2D>().position;
                 SteeringForce += ToAgent.normalized / ToAgent.magnitude;
             }
         }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class LifeComponent : MonoBehaviour {
 
     public PlayerHealthUI healthUI;
+    public Pause pauseUI;
 
     private int life ;
     public bool invicibility = false;
@@ -23,6 +24,7 @@ public class LifeComponent : MonoBehaviour {
         life -= damage;
         if (life < 0) {
             life = 0;
+            pauseUI.OnGameOver();
             //GameOver();
         }
         else if (life > 100) {

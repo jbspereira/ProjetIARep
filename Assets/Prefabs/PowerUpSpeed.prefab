@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212124157210345372}
   - component: {fileID: 61830372534440022}
   - component: {fileID: 114574313613549444}
+  - component: {fileID: 114238077174200948}
   m_Layer: 0
   m_Name: PowerUpSpeed
   m_TagString: PowerUp
@@ -67,6 +68,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114238077174200948
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1840129178007476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f6d3c6e4250e84192f5b34ce9e71bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glowColor: {r: 0.03146139, g: 0.13695684, b: 0.9528302, a: 1}
+  glowBrightness: 2.5
+  outlineWidth: 3
+  alphaThreshold: 0.01
+  drawOutside: 0
+  enableInstancing: 0
 --- !u!114 &114574313613549444
 MonoBehaviour:
   m_ObjectHideFlags: 1

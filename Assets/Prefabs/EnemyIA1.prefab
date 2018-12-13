@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114026198731888926}
   - component: {fileID: 114959505255741906}
   - component: {fileID: 95234591716461714}
+  - component: {fileID: 114704766809079564}
   m_Layer: 0
   m_Name: EnemyIA1
   m_TagString: vehicle
@@ -125,6 +126,23 @@ MonoBehaviour:
     radius: 0
     distance: 0
     jitter: 0
+--- !u!114 &114704766809079564
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1097808956204360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f6d3c6e4250e84192f5b34ce9e71bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glowColor: {r: 1, g: 0, b: 0, a: 1}
+  glowBrightness: 3
+  outlineWidth: 3
+  alphaThreshold: 0.01
+  drawOutside: 0
+  enableInstancing: 0
 --- !u!114 &114959505255741906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -139,6 +157,7 @@ MonoBehaviour:
   damageOnCollide: 20
   scoreGain: 30
   probaDrop: 15
+  explosion: {fileID: 1276513264000900, guid: f09b7e6756016d148b5ad1066b8aabbd, type: 2}
 --- !u!212 &212111520013636844
 SpriteRenderer:
   m_ObjectHideFlags: 1

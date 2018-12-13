@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Pause : MonoBehaviour {
 
     public GameObject PauseMenu;
+    public GameObject gameOverMenu;
     private bool isPause;
     private void Awake() {
         isPause = false;
@@ -36,5 +38,14 @@ public class Pause : MonoBehaviour {
 #else
         Application.Quit ();
 #endif
+    }
+
+    public void OnGameOver() {
+        Time.timeScale = 0.0f;
+        gameOverMenu.SetActive(true);
+    }
+
+    public void startGame() {
+        SceneManager.LoadScene(1);
     }
 }

@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114663037345732374}
   - component: {fileID: 114429481703541948}
   - component: {fileID: 95110386996647032}
+  - component: {fileID: 114023610429258384}
   m_Layer: 0
   m_Name: EnemyIA3
   m_TagString: vehicle
@@ -138,6 +139,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114023610429258384
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1669187531146610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f6d3c6e4250e84192f5b34ce9e71bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glowColor: {r: 1, g: 0.033018887, b: 0.79775375, a: 1}
+  glowBrightness: 3
+  outlineWidth: 3
+  alphaThreshold: 0.01
+  drawOutside: 0
+  enableInstancing: 0
 --- !u!114 &114343182068575070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -152,6 +170,7 @@ MonoBehaviour:
   damageOnCollide: 40
   scoreGain: 80
   probaDrop: 40
+  explosion: {fileID: 1276513264000900, guid: f09b7e6756016d148b5ad1066b8aabbd, type: 2}
 --- !u!114 &114429481703541948
 MonoBehaviour:
   m_ObjectHideFlags: 1
